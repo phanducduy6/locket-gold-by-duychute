@@ -1,41 +1,46 @@
-const mapping = {
-  '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
-  'Locket': ['Gold']
-};
+/*
+ *  - Fake Locket Gold
+ * Chỉ để hiển thị viền huy hiệu Gold local-only
+ */
 
-var ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
-var pattern = /^Locket/;
+let body = $response.body;
+if (body) {
+  try {
+    let obj = JSON.parse(body);
 
-if (pattern.test(ua)) {
-  var body = JSON.parse($response.body);
-  var obj = body.subscriber;
-  var data = {
-    "expires_date": "2099-09-09T09:09:09Z",
-    "original_purchase_date": "2023-09-09T09:09:09Z",
-    "purchase_date": "2023-09-09T09:09:09Z",
-    "ownership_type": "PURCHASED",
-    "store": "app_store"
-  };
-  
-  // Kích hoạt entitlements
-  obj.entitlements = {
-    "Gold": Object.assign({}, data, {
-      "product_identifier": "com.locket.gold.yearly"
-    })
-  };
-  
-  // Kích hoạt subscriptions
-  obj.subscriptions = {
-    "com.locket.gold.yearly": Object.assign({}, data, {
+    if (!obj.subscriber) obj.subscriber = {};
+    if (!obj.subscriber.subscriptions) obj.subscriber.subscriptions = {};
+    if (!obj.subscriber.entitlements) obj.subscriber.entitlements = {};
+
+    // Fake subscription Gold
+    obj.subscriber.subscriptions["locket.premium"] = {
       "is_sandbox": false,
-      "period_type": "normal",
+      "ownership_type": "PURCHASED",
       "billing_issues_detected_at": null,
+      "period_type": "normal",
+      "expires_date": "2099-12-31T23:59:59Z",
+      "grace_period_expires_date": null,
       "unsubscribe_detected_at": null,
-      "expires_date": "2099-09-09T09:09:09Z"
-    })
-  };
+      "original_purchase_date": "2025-09-02T00:00:00Z", // ngày fake tham gia
+      "purchase_date": "2025-09-02T00:00:00Z",
+      "store": "app_store"
+    };
 
-  $done({body: JSON.stringify(body)});
-} else {
-  $done({});
+    // Fake entitlement Gold
+    obj.subscriber.entitlements["Gold"] = {
+      "grace_period_expires_date": null,
+      "purchase_date": "2025-09-02T00:00:00Z",
+      "product_identifier": "locket.premium",
+      "expires_date": "2099-12-31T23:59:59Z"
+    };
+
+    // Flag attention
+    obj.Attention = "nightmarketserver - Fake Gold local-only";
+
+    body = JSON.stringify(obj);
+  } catch (e) {
+    console.log("Fake Gold error:", e);
+  }
 }
+
+$done({ body });
