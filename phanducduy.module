@@ -1,21 +1,22 @@
-#!name=Locket Gold V10
-#!desc=Mở khóa tính năng Locket Gold: Upload 4K, video dài, thay icon. Modified by PhanDucDuy.
+#!name=Locket Gold V10 (Duy Mod)
+#!desc=Mở khóa Locket Gold: Upload 4K, Video dài, Custom Icon. Server riêng của PhanDucDuy.
 #!author=PhanDucDuy
-#!homepage=https://github.com/PhanDucDuy
-#!icon=https://raw.githubusercontent.com/PhanDucDuy/YourRepo/main/icon.png
+#!homepage=https://github.com/phanducduy6
+#!icon=https://raw.githubusercontent.com/phanducduy6/locket-gold-by-duychute/main/icon.png
 #!select=select
 
 [General]
-# Cấu hình chung
+# Cấu hình chung để tối ưu
+bypass-system = true
+loglevel = notify
 
 [Rule]
-# Quy tắc định tuyến (nếu cần)
+# Không cần rule chặn đặc biệt cho bản này
 
 [Script]
-# Logic xử lý: Chặn request đến RevenueCat để trả về thông tin Gold giả
-# LƯU Ý: Hãy thay đường link https://... dưới đây bằng link RAW file .js của bạn
-LocketGold_RevenueCat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/v1\/(subscribers|receipts), requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/TenGitHubCuaBan/TenRepo/main/LocketGold.js
+# Đây là dòng quan trọng nhất, nó trỏ về file JS trong kho của bạn
+Locket_Gold_V10 = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/v1\/(subscribers|receipts), requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/phanducduy6/locket-gold-by-duychute/main/LocketGold.js
 
 [MitM]
-# Kích hoạt Man-in-the-Middle cho tên miền thanh toán
+# Kích hoạt giải mã HTTPS cho server thanh toán
 hostname = api.revenuecat.com
