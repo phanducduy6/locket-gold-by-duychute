@@ -39,16 +39,3 @@ if (pattern.test(ua)) {
 } else {
   $done({});
 }
-#!name=Locket Gold (Duy Chu Te)
-#!desc=Mở khóa Locket Gold: Upload ảnh nét, video dài.
-#!author=PhanDucDuy
-#!homepage=https://github.com/phanducduy6
-#!icon=https://github.com/phanducduy6/locket-gold-by-duychute/raw/main/icon.png
-#!select=select
-
-[Script]
-# Đã điền sẵn link raw JS của bạn ở dưới:
-LocketGold_Core = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/v1\/(subscribers|receipts), requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/phanducduy6/locket-gold-by-duychute/main/LocketGold.js
-
-[MitM]
-hostname = api.revenuecat.com
