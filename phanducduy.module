@@ -4,19 +4,20 @@
 #!homepage=https://github.com/phanducduy6
 #!icon=https://raw.githubusercontent.com/phanducduy6/locket-gold-by-duychute/main/icon.png
 #!select=select
+#!desc=Mở khoá premium cho ứng dụng Locket Widget 
+# 💬 facebook: https://www.facebook.com/phan.duc.duy.6
+# 🚀 Released by: duychute  
+#!version= 8
 
 [General]
-# Cấu hình chung để tối ưu
-bypass-system = true
-loglevel = notify
-
-[Rule]
-# Không cần rule chặn đặc biệt cho bản này
+user-agent = Locket/1.0.0 (iPhone; iOS 26; Scale/3.00)
 
 [Script]
-# Đây là dòng quan trọng nhất, nó trỏ về file JS trong kho của bạn
-Locket_Gold_V10 = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/v1\/(subscribers|receipts), requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/phanducduy6/locket-gold-by-duychute/main/LocketGold.js
 
-[MitM]
-# Kích hoạt giải mã HTTPS cho server thanh toán
-hostname = api.revenuecat.com
+# ~ Enhanced for Shadowrocket, Surge, & LanceX
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.*\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/NightmarketServer/Locket/refs/heads/main/locketfix1.js, requires-body=true, max-size=-1, timeout=120
+deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.*\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/NightmarketServer/Locket/refs/heads/main/header.js, timeout=120
+
+[MITM]
+hostname = api.revenuecat.com, raw.githubusercontent.com
+# 👤 Author: Phan Đức Duy
